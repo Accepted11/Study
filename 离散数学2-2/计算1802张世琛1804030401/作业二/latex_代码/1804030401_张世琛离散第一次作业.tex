@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{natbib}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\geometry{left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm}
+\usepackage{graphicx}
+%!TEX program = xelatex
+\usepackage{CJKutf8}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{aligned-overset}
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{mathpazo}
+\usepackage{xeCJK}
+\usepackage{chapterbib}
+%\setlength{\headheight}{27pt}
+\geometry{a4paper,scale=0.8}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{ACM Template of zhangshichen} %页眉与页脚
+\fancyfoot[C]{} 
+\rfoot{\thepage} % 显示页码
+\hypersetup{hidelinks} % 隐藏目录红色边框
+
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{108,48,130}
+\definecolor{weborange}{RGB}{255,165,0}
+\definecolor{frenchplum}{RGB}{129,20,83}
+
+\newfontfamily\codeFont{SourceCodePro-Medium}
+\newfontfamily\codeBold{SourceCodePro-Bold}
+\newfontfamily\commentFont{Courier Regular}
+\pagestyle{plain}   
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{caption2}
+\usepackage{datetime} %日期
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+\renewcommand{\captionlabelfont}{\small}
+\renewcommand{\captionfont}{\small}
+\setlength{\parindent}{2em}
+ \usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+
+ \usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+ \usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{
+    language    = Java,
+    numbers     = left,
+    numberstyle = \small,
+    breaklines  = true,
+    captionpos  = b,
+    tabsize     = 4,
+%   frame       = shadowbox,
+    frame       = leftline,
+    columns     = fullflexible,
+    commentstyle = \commentFont\color[RGB]{0,0,0},
+    keywordstyle = \codeBold\color[RGB]{0,0,0},
+    basicstyle   = \large\codeFont,
+    stringstyle  = \color[RGB]{48,0,20}\codeFont,
+    rulesepcolor = \color{red!20!green!20!blue!20},
+    showstringspaces = false,
+}
+\begin{document}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{upc.png}
+
+    \label{figupc}
+\end{figure}
+
+	\begin{center}
+		\quad \\
+		\quad \\
+		\heiti \fontsize{45}{17} \quad \quad \quad 
+		\vskip 1.5cm
+		\heiti \zihao{2} 离散数学（2-2）图论上机实验
+	\end{center}
+	\vskip 3.0cm
+		
+	\begin{quotation}
+% 	\begin{center}
+		\doublespacing
+		
+        \zihao{4}\par\setlength\parindent{7em}
+		\quad 
+
+		学生姓名：\underline{\qquad  张世琛 \qquad \qquad}
+
+		学\hspace{0.61cm} 号：\underline{\qquad 1804030401\qquad}
+		
+		专业班级：\underline{\qquad 计科1802 \qquad  }
+		
+        学\hspace{0.61cm} 院：\underline{计算机科学与技术学院}
+% 	\end{center}
+		\vskip 5cm
+		\centering
+		\today
+    \end{quotation}
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{1}
+% 在这之前是封面，在这之后是正文
+\section{实验内容}
+\begin{enumerate}
+    \item 实现深度优先搜索方式的递归汉密尔顿图的判定和汉密尔顿回路求解
+    \item 计算时间复杂度，给出节点数为5,10,20,100情况下的运行时间，并模拟出算法效率曲线图，
+    \item 实现使用部分计算简便的充分条件来实现汉密尔顿图判定的算法。    
+\end{enumerate}
+\section{背景知识}
+考虑汉密尔顿的判定和求汉密尔顿回路的问题
+汉密尔顿问题对应于在一个连通图上求通过所有结点一次且仅一次的回路问题，这个问题是一个NPC难题，因此一直没有特别有效的算法。
+判断一个连通图是不是汉密尔顿图最基本的方法就是使用递归穷举的方法，下面就是一个利用深度搜索来找出图中的汉密尔顿回路的算法。
+\section{算法解释}
+这里面用到了两个辅助的数组：整型数组ans[]用来记录找到的汉密尔顿回路，而布尔型数组vis[]用来记录结点的被访问情况，u表示获取与指定结点相邻的第一个结点，v表示获取与指定结点相邻的下一个结点，deep表示获取结点总数。用vector储存边
+
+利用这种递归方式，若我们从某一个连通图G的第1个结点开始搜素，则直接调用dfs(1,1)
+
+递归穷举的方式对于结点数较少的连通图是比较有效的，但是这种方法毕竟有限，而且速度较慢。
+
+当仅需要判定一个连通图是不是汉密尔顿图的时候，我们也可以使用上面的递归算法，若返回值为true，则该图是一个汉密尔顿图，不过由于递归算法在结点数比较多的时候效率不高，因此，对于汉密尔顿图的判定问题，可以首先采用一些非常简便的判定方法来确定一个连通路是不是汉密尔顿图，例如：汉密尔顿图的判定并没有充分必要条件，只有几个充分条件和几个必要条件可以使用，我们可以首先利用一些计算非常方便的充分条件来判定一个连通图是汉密尔顿图，比如利用下面提到的一些定理：
+\begin{enumerate}
+    \item G是连通的,$$\forall u,v \in V \quad u\neq v \quad 
+    deg(u)+deg(v)>=n$$则此连通图一定是汉密尔顿图。 
+    \item 若一连通图的闭包是完全图，则此连通图一定是汉密尔顿图。 
+\end{enumerate}
+尝试将这些定理加入到汉密尔顿图的判定当中，之后这些定理无法判定的时候，才需要采用递归的方式来解决。
+
+\section{算法核心代码}
+    \lstinputlisting{main.cc}
+\end{document}
