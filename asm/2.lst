@@ -1,0 +1,68 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/11/20 20:20:39
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES
+ 0000				START:
+ 0000  B4 01				MOV AH,01H
+ 0002  CD 21			    INT 21H 
+ 0004  B1 04			    mov cl,4
+ 0006  8A D8				mov BL,AL 
+ 0008  80 FB 40				CMP	bl,40h
+ 000B  76 03				JNA NEXT
+ 000D  80 EB 07			    sub  bL,07
+ 0010  80 EB 30			NEXT:sub bL,30H
+ 0013  D2 E3			    shl bl,cl
+ 0015  B4 01				MOV AH,01H
+ 0017  CD 21			    INT 21H 
+ 0019  8A C8			    mov cl,al
+ 001B  80 F9 40			    CMP	cl,40h
+ 001E  76 03				JNA NEXT1
+ 0020  80 E9 07			    sub  cL,07
+ 0023  80 E9 30			NEXT1:sub cL,30H
+ 0026  80 E1 0F			 	and cl,0fh
+ 0029  02 D9			    add bl,cl
+ 002B  B2 0A			    MOV DL,0AH
+ 002D  B4 02			    MOV AH,02H    
+ 002F  CD 21			    INT 21H
+ 0031  B2 0D			    MOV DL,0DH
+ 0033  CD 21			    INT 21H 
+ 0035  B9 0008				MOV CX,08H
+ 0038				AGAIN:
+ 0038  D0 E3				SHL BL,1
+ 003A  B2 00				MOV DL,0H
+ 003C  80 D2 30				ADC DL,30H
+ 003F  B4 02				MOV AH,02H
+ 0041  CD 21				INT 21H
+ 0043  E2 F3				LOOP AGAIN
+ 0045  B4 4C			MOV AH,4CH
+ 0047  CD 21				INT 21H
+ 0049					CODES ENDS
+				           END START
+
+
+Microsoft (R) Macro Assembler Version 6.11		    06/11/20 20:20:39
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 0049	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+AGAIN  . . . . . . . . . . . . .	L Near	 0038	  CODES	
+NEXT1  . . . . . . . . . . . . .	L Near	 0023	  CODES	
+NEXT . . . . . . . . . . . . . .	L Near	 0010	  CODES	
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+
+	   0 Warnings
+	   0 Errors

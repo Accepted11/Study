@@ -1,0 +1,71 @@
+;  实验五    键盘扫描及显示  8255  控制数码管显示动态输出00-FF
+DATA SEGMENT
+     NUM DB 03FH,06H,05BH,04FH,66H,06DH,07DH,07H,07FH,06FH,77H,07CH,39H,05EH,79H,71H   
+     POS DB 03EH,03DH,03BH,37H,02FH,01FH
+DATA ENDS
+
+CODES SEGMENT
+      ASSUME CS:CODES,DS:DATA
+      
+TEMP PROC FAR
+       MOV DX,0602H
+       MOV AL,0H
+       OUT DX,AL
+       MOV DX,0600H
+       MOV AL,0FFH
+       OUT DX,AL
+       RET
+TEMP ENDP
+
+START:
+       MOV AX,DATA
+       MOV DS,AX
+       MOV BX,00H      
+       MOV AX,00H    
+       MOV SI,AX
+       
+DISPLAYY:
+
+       MOV CX,1000H  
+SHOW:
+       MOV DX,0606H
+       MOV AL,80H      
+       OUT DX,AL
+       CALL TEMP
+       
+       MOV DX,0602H    
+       MOV AL,NUM[BX]  
+       OUT DX,AL
+       
+       MOV DX,0600H 
+       MOV AL,POS[5]
+       OUT DX,AL
+       CALL TEMP
+       
+       MOV DX,0602H   
+       MOV AL,NUM[SI] 
+       OUT DX,AL
+       
+       MOV DX,0600H
+       MOV AL,POS[4]
+       OUT DX,AL
+       
+       LOOP SHOW
+       
+       INC BX        
+       CMP BX,10H      
+       JB CONTINUE     
+       INC SI          
+       MOV BX,0        
+ 
+CONTINUE:            
+       CMP SI,10H
+       JB NEXT 
+       MOV SI,00H      
+NEXT:
+       JMP DISPLAYY
+
+CODES ENDS
+       END START
+ 
+ 

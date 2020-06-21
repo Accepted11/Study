@@ -1,0 +1,86 @@
+data segment
+tab db 3fh,06h,5bh,4fh,66h,6dh,7dh,07h,7fh,6fh
+codetab db 6 dup(?)
+msec dw 
+sec db 0h
+min db 0h
+hour db 0h
+
+data ends
+code segment
+	assume cs:code,ds:data
+	start:
+  cont:	call time
+		inc msec
+		mov ax,msec
+		cmp ax,1000
+		jnz cont
+		mov msec,0
+		
+		inc sec
+		mov ax,sec
+		cmp ax,60
+		jnz nxt
+		call update
+  nxt:	mov 
+		
+		/*
+		mov sec,0
+		inc min
+		mov ax,min
+		cmp ax,60
+		jz updateMin
+		
+		mov min,0
+		inc hour
+		mov ax,hour
+		cmp ax,24
+		jmp update
+		mov hour,0
+		jmp updateHour*/
+		
+		
+update proc:
+		mov sec,0
+		inc min
+		mov ax,min
+		cmp ax,60
+		jnz A
+		ret
+		
+	A:	mov min,0
+		inc hour
+		mov ax,hour
+		cmp ax,24
+		jnz B
+		ret
+	B:	mov hour,0
+		ret
+
+/*updateSec: 
+		mov sec,0
+		inc min
+		mov ax,min
+		cmp ax,60
+		jz updateMin
+		jmp cont
+updateMin: 
+		mov min,0
+		inc hour
+		mov ax,hour
+		cmp ax,24
+		jz updateHour
+		jmp cont
+updateHour:
+		mov hour,0
+		jmp cont*/
+		
+time proc:
+	mov cx 1000
+	wait :
+		loop wait
+	ret
+time endp
+		
+code ends
+	ends start

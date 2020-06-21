@@ -1,0 +1,112 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/13/20 07:58:43
+tempfile.asm						     Page 1 - 1
+
+
+ = 003F				ZERO EQU 3FH
+ = 0006				ONE EQU 06H
+ = 005B				TWO EQU 5BH
+ = 004F				THREE EQU 4FH
+ = 0066				FOUR EQU 66H
+ = 006D				FIVE EQU 6DH
+ = 007D				SIX EQU 7DH
+ = 0007				SEVEN EQU 07H
+ = 007F				EIGHT EQU 7FH
+ = 006F				NINE EQU 6FH
+
+ 0000				STACK SEGMENT
+ 0000  0020 [			DW 32 DUP(?)
+        0000
+       ]
+ 0040				STACK ENDS
+ 0000				DATAS SEGMENT
+ 0000 3F 06 5B 4F 66 6D		LED DB ZERO,ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE
+       7D 07 7F 6F
+ 000A				DATAS ENDS
+ 0000				CODE SEGMENT
+
+				ASSUME CS:CODE,DS:DATAS
+ 0000				START:
+ 0000  B8 ---- R		MOV AX,DATAS
+ 0003  8E D8			MOV DS,AX
+ 0005  BA 0606			MOV DX,0606H
+ 0008  B0 80			MOV AL,80H
+ 000A  EE			OUT DX,AL
+
+ 000B				AA3:
+ 000B  B9 000A			MOV CX,10
+ 000E  B3 DF			MOV BL,11011111B
+ 0010  BE 0000			MOV SI,0
+
+
+ 0013				AA1:
+ 0013  BA 0602			MOV DX,0602H
+ 0016  8A 84 0000 R		MOV AL,LED[SI]
+ 001A  EE			OUT DX,AL
+ 001B  BA 0600			MOV DX,0600H
+ 001E  8A C3			MOV AL,BL
+ 0020  EE			OUT DX,AL
+ 0021  E8 0011			CALL DELAY
+ 0024  E8 000E			CALL DELAY
+ 0027  E8 000B			CALL DELAY
+
+ 002A  BA 0600			MOV DX,0600H
+ 002D  B0 FF			MOV AL,0FFH
+ 002F  EE			OUT DX,AL
+
+ 0030  46			INC SI
+ 0031  E2 E0			LOOP AA1
+
+ 0033  EB D6			JMP AA3
+
+
+ 0035				DELAY:
+ 0035  51			PUSH CX
+ 0036  B9 FFFF			MOV CX,0FFFFH
+ 0039				AA2:
+ 0039  50			PUSH AX
+ 003A  58			POP AX
+ 003B  E2 FC			LOOP AA2
+ 003D  59			POP CX
+ 003E  C3			RET
+
+ 003F				CODE ENDS
+					END START
+
+Microsoft (R) Macro Assembler Version 6.11		    06/13/20 07:58:43
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 003F	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 000A	  Para	  Private 
+STACK  . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+AA1  . . . . . . . . . . . . . .	L Near	 0013	  CODE	
+AA2  . . . . . . . . . . . . . .	L Near	 0039	  CODE	
+AA3  . . . . . . . . . . . . . .	L Near	 000B	  CODE	
+DELAY  . . . . . . . . . . . . .	L Near	 0035	  CODE	
+EIGHT  . . . . . . . . . . . . .	Number	 007Fh	 
+FIVE . . . . . . . . . . . . . .	Number	 006Dh	 
+FOUR . . . . . . . . . . . . . .	Number	 0066h	 
+LED  . . . . . . . . . . . . . .	Byte	 0000	  DATAS	
+NINE . . . . . . . . . . . . . .	Number	 006Fh	 
+ONE  . . . . . . . . . . . . . .	Number	 0006h	 
+SEVEN  . . . . . . . . . . . . .	Number	 0007h	 
+SIX  . . . . . . . . . . . . . .	Number	 007Dh	 
+START  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+THREE  . . . . . . . . . . . . .	Number	 004Fh	 
+TWO  . . . . . . . . . . . . . .	Number	 005Bh	 
+ZERO . . . . . . . . . . . . . .	Number	 003Fh	 
+
+	   0 Warnings
+	   0 Errors

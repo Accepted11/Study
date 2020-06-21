@@ -1,0 +1,45 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/11/20 22:05:01
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+ 0000				DATAS ENDS
+
+ 0000				CODE SEGMENT
+					 ASSUME CS:CODE,DS:DATAS
+ 0000				START: 
+ 0000  B8 ---- R			   MOV AX,DATAS
+ 0003  8E D8				   MOV DS,AX
+ 0005  BE 3000				   MOV SI,3000h
+ 0008  B9 0010				   MOV CX,16
+ 000B  B0 00				   mov al,0
+ 000D  88 04			LOOP1: MOV [SI],AL
+ 000F  46				   INC SI
+ 0010  FE C0				   INC AL
+ 0012  E2 F9				   LOOP LOOP1
+				;LOOP2: JMP LOOP2
+ 0014				CODE ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    06/11/20 22:05:01
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 0014	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0000	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+LOOP1  . . . . . . . . . . . . .	L Near	 000D	  CODE	
+START  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+
+	   0 Warnings
+	   0 Errors

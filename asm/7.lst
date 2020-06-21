@@ -1,0 +1,66 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/12/20 15:57:59
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES
+ 0000				START:
+ 0000  BA 0646				MOV DX,0646H   ;8254控制口地址
+ 0003  B0 16				MOV AL,00010110B ;送控制字
+ 0005  EE				OUT DX,AL
+ 0006  BA 0640				MOV DX,0640H
+ 0009  B0 04				MOV AL,4
+ 000B  EE				OUT DX,AL
+ 000C  BA 0606				MOV DX,0606H
+ 000F  B0 90				MOV AL,10010000B
+ 0011  EE				OUT DX,AL
+ 0012				B1:
+ 0012  BA 0600				MOV DX,0600H
+ 0015  EC				IN AL,DX
+ 0016  3C 00				CMP AL,0
+ 0018  75 08				JNE L1
+ 001A  BA 0602				MOV DX,0602H
+ 001D  B0 AA				MOV AL,10101010B
+ 001F  EE				OUT DX,AL
+ 0020  EB 06				JMP L2
+ 0022				L1:
+ 0022  BA 0602				MOV DX,0602H
+ 0025  B0 55				MOV AL,01010101B
+ 0027  EE				OUT DX,AL
+ 0028				L2:
+ 0028  E8 0000				CALL DELAY
+
+ 002B				DELAY:
+ 002B  BA 0000				MOV DX,0
+ 002E  42				NE1:INC DX
+ 002F  83 FA FF					CMP DX,0FFFFH
+ 0032  75 FA					JNE NE1
+ 0034  C3				RET
+ 0035				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    06/12/20 15:57:59
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 0035	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+B1 . . . . . . . . . . . . . . .	L Near	 0012	  CODES	
+DELAY  . . . . . . . . . . . . .	L Near	 002B	  CODES	
+L1 . . . . . . . . . . . . . . .	L Near	 0022	  CODES	
+L2 . . . . . . . . . . . . . . .	L Near	 0028	  CODES	
+NE1  . . . . . . . . . . . . . .	L Near	 002E	  CODES	
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+
+	   0 Warnings
+	   0 Errors

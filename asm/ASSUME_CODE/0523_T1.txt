@@ -1,0 +1,47 @@
+sstack	segment stack
+		dw 32 dup(?)
+sstack	ends
+code	segment
+		assume cs:code
+start:	mov dx,0646h
+		mov al,90h
+		out dx,al
+a1:		mov dx,0646h
+		in al,dx
+		call delay
+		mov dx,0646h
+		out dx,al
+		jmp a1
+delay:	push cx
+		mov cx,0f00h
+a2:		push ax
+		pop ax
+		loop a2
+		pop cx
+		ret
+code	ends
+		end start
+
+
+
+
+
+
+sstack	segment stack
+		dw 32 dup(?)
+sstack	ends
+code	segment
+		assume cs:code
+start:	
+		mov dx,0646h
+		mov al,90h
+		out dx,al
+		
+a1:		mov dx,0640h
+		in al,dx
+		mov dx,0642h
+		out dx,al
+		jmp a1
+code	ends
+end start
+
